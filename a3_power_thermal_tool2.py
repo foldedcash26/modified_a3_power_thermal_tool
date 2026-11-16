@@ -503,7 +503,7 @@ class RoverDesign:
     hot_ops_dissipation_mode: str = "peak"
     siesta_dissipation_in_box_W: float = 7.4       # avionics only, during siesta
     pcm_peak_duration_h: float = 4.3333               # longest single peak (comms pass)
-    plate_gradient_K: float = 3.8                 # electronics above radiator
+    plate_gradient_K: float = 6.3                 # electronics above radiator
     electronics_max_degC: float = 35.0             # T-1 from A1
     mli_effective_emittance: float = 0.03
     mli_area_m2: float = 0.28
@@ -816,7 +816,7 @@ def run_design(d: RoverDesign, verbose: bool = True) -> Dict[str, float]:
         f"radiator {out['radiator_mass_kg']:.2f} + MLI {mli_kg:.2f} = {mass_kg:.2f} kg (add PCDU, harness, heaters yourself)")
     say(f"The weight for PCDU is handled by adding a margin of 20% to the weight of the power system -> final mass: {mass_kg_margin:.2f} kg")
     out["power_thermal_mass_kg"] = mass_kg
-    
+
     say("\nFLAGS")
     if flags:
         for f_ in flags:
@@ -867,7 +867,7 @@ if __name__ == "__main__":
         array_on_roof=False,                   # tilted panel frees the roof
         array_design_power_W=14.5,# what 35.5 jan suggested 14.5 what i thought at first
         siesta_half_width_days=1.23,           # 11:00-13:00 local standby
-        hot_ops_dissipation_mode="average",    # peaks buffered by PCM (WE4)
+        hot_ops_dissipation_mode="peak",    # peaks buffered by PCM (WE4)
         loads=[
             Load("Idle/Charging", 4.76, 0.2986,inside_warm_box=True),
             Load("Mobility (driving)", 14.02, 0.417, inside_warm_box=False),
