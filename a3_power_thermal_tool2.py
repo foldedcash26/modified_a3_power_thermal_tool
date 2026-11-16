@@ -810,10 +810,11 @@ def run_design(d: RoverDesign, verbose: bool = True) -> Dict[str, float]:
     #pcm_total_kg = pcm_kg * 1.5                  # wax + ~50 % for the container
     mass_kg = (out["array_mass_kg"] + batt_mass_kg + out["radiator_mass_kg"]
                + mli_kg)
-    mass_kg_margin=mass_kg*1.4
+    mass_power_kg=(out["array_mass_kg"] + batt_mass_kg)
+    mass_kg_margin=mass_power_kg*1.2
     say(f"  (d) Array {out['array_mass_kg']:.2f} + battery {batt_mass_kg:.2f} + "
         f"radiator {out['radiator_mass_kg']:.2f} + MLI {mli_kg:.2f} = {mass_kg:.2f} kg (add PCDU, harness, heaters yourself)")
-    say(f"The weight for PCDU and harness are handled by adding a margin of 40% -> final mass: {mass_kg_margin:.2f} kg")
+    say(f"The weight for PCDU is handled by adding a margin of 20% to the weight of the power system -> final mass: {mass_kg_margin:.2f} kg")
     out["power_thermal_mass_kg"] = mass_kg
     
     say("\nFLAGS")
